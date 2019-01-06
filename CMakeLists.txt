@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
-project(fccedm CXX)
+project(fccedmlegacy CXX)
 
 set(FCCEDM_MAJOR_VERSION 0)
 set(FCCEDM_MINOR_VERSION 5)
@@ -37,7 +37,7 @@ foreach(p LIB BIN INCLUDE CMAKE)
 endforeach()
 
 # Set up C++14
-set(CPP_STANDARD_FLAGS "-std=c++14")
+set(CPP_STANDARD_FLAGS "-std=c++17")
 if (${APPLE})
     set(CPP_STANDARD_FLAGS "-std=c++14\ -stdlib=libc++")
 endif()
@@ -98,43 +98,43 @@ configure_file(${CMAKE_SOURCE_DIR}/cmake/Datamodel.cmake
   "${CMAKE_SOURCE_DIR}/datamodel/CMakeLists.txt" @ONLY)
 # Add sub-directories
 add_subdirectory(datamodel)
-add_subdirectory(utilities)
-add_subdirectory(examples)
-add_subdirectory(tests)
+#add_subdirectory(utilities)
+#add_subdirectory(examples)
+#add_subdirectory(tests)
 
 
 # The interesting stuff goes here
 # ===============================
 
 # Add all targets to the build-tree export set
-export(TARGETS datamodel utilities fccedm-write fccedm-read fccedm-simplewrite
-  FILE "${PROJECT_BINARY_DIR}/fccedmTargets.cmake")
+#export(TARGETS datamodel utilities fccedm-write fccedm-read fccedm-simplewrite
+#  FILE "${PROJECT_BINARY_DIR}/fccedmTargets.cmake")
 
 # Export the package for use from the build-tree
 # (this registers the build-tree with a global CMake-registry)
-export(PACKAGE fccedm)
+#export(PACKAGE fccedm)
 
 # Create the fccedmConfig.cmake and fccedmConfigVersion files
-file(RELATIVE_PATH REL_INCLUDE_DIR "${INSTALL_CMAKE_DIR}"
-   "${INSTALL_INCLUDE_DIR}")
+#file(RELATIVE_PATH REL_INCLUDE_DIR "${INSTALL_CMAKE_DIR}"
+#   "${INSTALL_INCLUDE_DIR}")
 # ... for the build tree
-set(CONF_INCLUDE_DIRS "${PROJECT_SOURCE_DIR}" "${PROJECT_BINARY_DIR}")
-configure_file(fccedmConfig.cmake.in
-  "${PROJECT_BINARY_DIR}/fccedmConfig.cmake" @ONLY)
+#set(CONF_INCLUDE_DIRS "${PROJECT_SOURCE_DIR}" "${PROJECT_BINARY_DIR}")
+#configure_file(fccedmConfig.cmake.in
+#  "${PROJECT_BINARY_DIR}/fccedmConfig.cmake" @ONLY)
 # ... for the install tree
-set(CONF_INCLUDE_DIRS "\${FCCEDM_CMAKE_DIR}/${REL_INCLUDE_DIR}")
-configure_file(fccedmConfig.cmake.in
-  "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/fccedmConfig.cmake" @ONLY)
+#set(CONF_INCLUDE_DIRS "\${FCCEDM_CMAKE_DIR}/${REL_INCLUDE_DIR}")
+#configure_file(fccedmConfig.cmake.in
+#  "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/fccedmConfig.cmake" @ONLY)
 # ... for both
-configure_file(fccedmConfigVersion.cmake.in
-  "${PROJECT_BINARY_DIR}/fccedmConfigVersion.cmake" @ONLY)
+#configure_file(fccedmConfigVersion.cmake.in
+#  "${PROJECT_BINARY_DIR}/fccedmConfigVersion.cmake" @ONLY)
 
 # Install the fccedmConfig.cmake and fccedmConfigVersion.cmake
-install(FILES
-  "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/fccedmConfig.cmake"
-  "${PROJECT_BINARY_DIR}/fccedmConfigVersion.cmake"
-  DESTINATION "${INSTALL_CMAKE_DIR}" COMPONENT dev)
+#install(FILES
+#  "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/fccedmConfig.cmake"
+#  "${PROJECT_BINARY_DIR}/fccedmConfigVersion.cmake"
+#  DESTINATION "${INSTALL_CMAKE_DIR}" COMPONENT dev)
 
 # Install the export set for use with the install-tree
-install(EXPORT fccedmTargets DESTINATION
-  "${INSTALL_CMAKE_DIR}" COMPONENT dev)
+#install(EXPORT fccedmTargets DESTINATION
+#  "${INSTALL_CMAKE_DIR}" COMPONENT dev)
