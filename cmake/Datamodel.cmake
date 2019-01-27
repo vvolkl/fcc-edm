@@ -9,10 +9,10 @@ file(GLOB headers datamodel/*.h podio/PythonEventStore.h)
 add_library(datamodel-fcclegacy SHARED ${sources} ${headers})
 target_link_libraries(datamodel-fcclegacy podio)
 
-REFLEX_GENERATE_DICTIONARY(datamodel-fcclegacyDict ${headers} SELECTION src/selection.xml )
-add_library(datamodel-fcclegacyDictDict SHARED datamodel-fcclegacyDict.cxx)
-add_dependencies(datamodel-fcclegacyDictDict datamodel-fcclegacyDict-dictgen)
-target_link_libraries(datamodel-fcclegacyDictDict datamodel-fcclegacyDict podio ROOT::RIO ROOT::Tree ROOT::Physics)
+REFLEX_GENERATE_DICTIONARY(datamodel-fcclegacy ${headers} SELECTION src/selection.xml )
+add_library(datamodel-fcclegacyDict SHARED datamodel-fcclegacy.cxx)
+add_dependencies(datamodel-fcclegacyDict datamodel-fcclegacy-dictgen)
+target_link_libraries(datamodel-fcclegacyDict datamodel-fcclegacy podio ROOT::RIO ROOT::Tree ROOT::Physics)
 
 set_target_properties(datamodel-fcclegacy PROPERTIES
   PUBLIC_HEADER "${headers}")
